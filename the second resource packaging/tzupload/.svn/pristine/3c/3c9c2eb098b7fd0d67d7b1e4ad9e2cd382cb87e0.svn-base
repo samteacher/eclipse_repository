@@ -1,0 +1,61 @@
+关于通用路径的问题：
+第一种方案：
+1:如果你是jsp 直接定义一个通用的页面
+common.jsp上如下代码:
+	<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+	<%
+	String path = request.getContextPath();
+	Integer port = request.getServerPort();
+	String basePath = null;
+	if(port==80){
+		basePath = request.getScheme()+"://"+request.getServerName()+path;
+	}else{
+		basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+	}
+	pageContext.setAttribute("basePath", basePath);
+	%>
+2:<%@include file="../common/common.jsp"%>
+
+
+
+第二种方案：
+/**
+ * tzdesk系统平台
+ * tzupload
+ * com.tz.core
+ * BasePathExpsoer.java
+ * 创建人:xuchengfei 
+ * 时间：2015年11月13日-下午10:27:57 
+ * 2015潭州教育公司-版权所有
+ */
+package com.tz.core;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.web.context.ServletContextAware;
+
+/**
+ * 
+ * BasePathExpsoer
+ * 创建人:xuchengfei 
+ * 时间：2015年11月13日-下午10:27:57 
+ * @version 1.0.0
+ * 
+ */
+public class BasePathExpsoer  implements ServletContextAware{
+
+	private ServletContext application;
+
+	private String basePath;
+	public void init(){
+		basePath = application.getContextPath();
+		application.setAttribute("rootPath", basePath);
+	}
+	
+	@Override
+	public void setServletContext(ServletContext application) {
+		this.application = application;
+	}
+}
+
+

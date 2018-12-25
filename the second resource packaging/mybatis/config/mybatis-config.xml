@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  
+  <!-- 链接db.properties -->
+  <properties resource="db.properties"></properties>
+  
+  <typeAliases>
+  	<typeAlias type="com.sam.bean.User" alias="User"/>
+  	<typeAlias type="com.sam.bean.Parmes" alias="Parmes"/>
+  	<typeAlias type="com.sam.bean.Student" alias="Student"/>
+  </typeAliases>
+
+  <environments default="development">
+    <environment id="development">
+      <!-- 设值的是MANAGED 自动管理 事务提交-->
+      <transactionManager type="MANAGED">
+      	  <property name="closeConnection" value="false"/>
+      </transactionManager>
+      <!-- 数据源  POOLED，它是一个线程池(放入全部都是连接对象)，监听连接的获取，关闭-->
+      <dataSource type="POOLED">
+        <property name="driver" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- sql配置文件的解析和注入 -->
+  <mappers>
+  	<mapper resource="com/sam/inter/StudentMapper.xml"/>
+  	<!-- <mapper resource="com/sam/dao/user/User.xml"/> -->
+  	<!-- <mapper resource="com.sam.inter.TeacherMapper"/> -->
+  	<mapper resource="com/sam/dao/UserMapper.xml"/>
+<!--   	<mapper resource="com/sam/dao/TeacherStudentMapper.xml"/> -->
+  </mappers>
+  
+  <plugins>
+  	<plugin interceptor="com.sam.dao.ExamplePlugin">
+  		<property name="someProPerty" value="100"/>
+  	</plugin>
+  </plugins>
+  
+</configuration>

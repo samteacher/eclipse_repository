@@ -1,0 +1,87 @@
+springmvc 拦截器
+1.创建一个类，继承人HandlerInterceptor
+
+2.配置拦截器
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/*"/>
+		<!-- 那些地址不执行该拦截器 -->
+		<!-- <mvc:exclude-mapping path="/login" /> -->
+		<bean class="com.sam.core.LoginIntercetor"></bean>
+	</mvc:interceptor>
+</mvc:interceptors>
+
+==============================================================================
+
+统一路径  第一种路径方式
+public class BasePathExpsoer implements ServletContextAware {
+
+	private ServletContext application;
+
+	private String rootPath;
+
+	public void init() {
+		if (MyStringUtils.isEmpty(rootPath)) {
+			rootPath = application.getContextPath();
+		}
+		application.setAttribute("rootPath", rootPath);
+	}
+
+	@Override
+	public void setServletContext(ServletContext application) {
+		this.application = application;
+	}
+
+	public String getRootPath() {
+		return rootPath;
+	}
+
+	public void setRootPath(String rootPath) {
+		this.rootPath = rootPath;
+	}
+
+}
+
+
+<!-- 统一路径配置 -->
+<bean class="com.sam.core.BasePathExpsoer" init-method="init" id="path">
+	<!-- 可自定义配置路径的方法    <property name="rootPath" value="http://www.baidu.com"></property>    -->
+	<property name="rootPath" value="http://www.baidu.com"></property>
+</bean>
+
+
+
+
+第二路路径方式
+
+<%
+	String path = request.getContextPath();
+	Integer port = request.getServerPort();
+	String basePath = null;
+	if(port==80){
+		basePath = request.getScheme()+"://"+request.getServerName()+path;
+	}else{
+		basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+	}
+	pageContext.setAttribute("basePath", basePath);
+%>
+==============================================================================
+
+
+统一异常
+第一种方式
+@ExceptionHandler(RuntimeException.class)
+public String handlerException(RuntimeException runtimeException){
+	return "redirect:/error.jsp";
+}
+
+
+<!-- 统一异常 -->
+第二种方式
+<bean id="handlerExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<property name="exceptionMappings">
+		<props>
+			<prop key="java.lang.RuntimeException">redirect:/error.jsp</prop>
+		</props>
+	</property>
+</bean>

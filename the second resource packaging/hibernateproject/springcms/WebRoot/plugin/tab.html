@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/sg.css"/>
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/sgutil.js"></script>
+  <script type="text/javascript" src="js/sg.js"></script>
+ </head>
+ <body>
+
+<div class="tztab" data-background="#141414" data-width="480">
+	<div class="data" style="display:none;">
+		[
+			{title:"中国",content:"士大夫士大夫","url":"user.action"},
+			{title:"美国",content:"士大夫收到22222","url":"delete.action"},
+			{title:"日本",content:"选项卡3333"}
+		]
+	</div>
+</div>
+<div class="tztab" data-linear="red,yellow" data-border="red" data-width="980">
+	<div class="data" style="display:none;">
+		[
+			{title:"美食",content:"士大夫士大夫","url":"user.action"},
+			{title:"逛街",content:"士大夫收到22222","url":"delete.action"},
+			{title:"购物",content:"选项卡3333"}
+		]
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$(".tztab").tzTab({width:1080,callback:function($li,$content){
+			$content.html($li.text())
+		}});
+	});	
+</script>
+ </body>
+</html>

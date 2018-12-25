@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>tzupload</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 加载和初始化spring应用上下文 application.setAttribute("contextConfigLocation","classpath:applicationContext.xml") -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <!-- 这个监听器就是专门去坚挺上面application的作用域的变化，如果发生了改变(setAttribute),那么它就会把spring 应用用上下文applicationContext(WebApplicationContext)初始化放入到appliation的作用域 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 乱码问题,post请求乱码 -->
+  <filter>
+    <filter-name>encoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- springmvc的核心类 -->
+  <servlet>
+  	<servlet-name>tzupload</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>namespace</param-name>
+  		<param-value>kekeupload</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>tzupload</servlet-name>
+  	<!-- 不允许使用.jsp,.js.css一些常见的资源名称 -->
+   	<url-pattern>*.html</url-pattern>
+<!--<url-pattern>*.keke</url-pattern> -->
+<!--<url-pattern>*.cc</url-pattern> -->
+  </servlet-mapping>
+  
+  
+   
+</web-app>

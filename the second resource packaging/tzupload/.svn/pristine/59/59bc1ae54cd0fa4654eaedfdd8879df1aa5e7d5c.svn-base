@@ -1,0 +1,9 @@
+第一种方式 : 定义一个父类
+/*统一异常处理*/
+@ExceptionHandler(RuntimeException.class)
+public String handlerException(RuntimeException runtimeException){
+	return "redirect:/error.jsp";
+}
+
+
+第二种方式:

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.bean.TeacherStudentMapper">  
+	
+	<select id="findStudentsMap" resultType="java.util.Map" parameterType="int">
+		SELECT
+			t.id as tid,
+			t.username as tusername,
+			s.id as sid,
+			s.username as uname,
+			s.classname as cname
+		FROM
+			tz_student s 
+		LEFT JOIN tz_teacher t ON t.id = s.teacher_id
+		WHERE
+			s.teacher_id = #{0} 
+	</select>
+	
+	
+	<!-- 不允许使用
+	<resultMap id="teacherMap" type="Teacher">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<collection property="students" ofType="Student" fetchType="lazy"> 
+			<id column="sid"  property="id"/>
+			<result column="sname" property="username"/>
+			<result column="classname" property="classname"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getTeacher2" resultMap="teacherMap" parameterType="int">
+		SELECT
+			t.id,
+			t.username,
+			s.id as sid,
+			s.username as sname,
+			s.classname
+		FROM
+			tz_student s 
+		LEFT JOIN tz_teacher t ON t.id = s.teacher_id
+		WHERE
+			s.teacher_id = #{0} 
+	</select>
+	 -->
+	
+	<resultMap id="teacherMap" type="Teacher">
+		<id column="id" property="id"/><!--  teacher.setId(rs.getInt("id"))-->
+		<result column="username" property="username"/><!--  teacher.setUserName(rs.getString("username"))-->
+		<collection property="students" fetchType="lazy"  column="id"  ofType="Student" select="queryStudentByPage"></collection>
+	</resultMap>
+	
+	<select id="getTeacher2" resultMap="teacherMap" parameterType="int">
+		SELECT
+			t.id,
+			t.username
+		FROM
+			tz_teacher t	
+		WHERE 
+		  t.id=#{0}
+	</select>
+	
+	<select id="queryStudentByPage" resultType="Student">
+		select id ,username ,classname  from tz_student 
+		where teacher_id = #{id} limit 0,10
+	</select>
+	
+	
+	<!-- 多对一 -->
+	<resultMap id="studentMap2" type="Student">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="classname" property="classname"/>
+		<association property="teacher" javaType="Teacher" column="id">
+			<id column="tid" property="id"/>
+			<result column="tusername" property="username"/>
+		</association>
+	</resultMap>
+	
+	<select id="queryStudents" resultMap="studentMap2" parameterType="Params">
+		SELECT
+			s.id,
+			s.username,
+			s.classname,
+			t.id as tid,
+			t.username as tusername
+		FROM
+			tz_student s
+		LEFT JOIN tz_teacher t ON t.id = s.teacher_id
+		WHERE
+			s.teacher_id = #{id}
+	</select>
+	
+	
+	
+	<!-- 多对一 第二种写法 -->
+	<resultMap id="studentMap3" type="Student">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="classname" property="classname"/>
+		<association property="teacher" javaType="Teacher" column="id" select="queryTeacher"></association>
+	</resultMap>
+	
+	
+	<select id="queryStudents2" resultMap="studentMap3" parameterType="Params">
+		SELECT
+			s.id,
+			s.username,
+			s.classname
+		FROM
+			tz_student s
+		WHERE
+			s.teacher_id = #{id}
+	</select>
+	
+	<select id="queryTeacher" resultType="Teacher">
+		SELECT
+			t.id,
+			t.username
+		FROM
+			tz_teacher t	
+		WHERE 
+		  t.id=#{id}
+	</select>
+	
+</mapper>
+

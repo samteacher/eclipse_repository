@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口的方法  这里必须是接口的地址 -->
+<mapper namespace="com.sam.inter.StudentMapper">  
+
+
+	<select id="findStudents" resultType="Student" parameterType="Student">
+		SELECT
+			*
+		FROM
+			student
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="@com.sam.util.SqlUtil@isNotEmpty(id)">
+				id = #{id}	
+			</if>		
+			<if test="@com.sam.util.SqlUtil@isNotEmpty(teacher_id)">
+				AND teacher_id = #{teacher_id}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="findInStudent" resultType="User" parameterType="Parmes">
+		SELECT
+			*
+		FROM
+			USER
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="optis != null and optis.size() > 0">
+			   <foreach collection="optis" index="index" open="id in("  close=")" item="item" separator=",">
+		            #{item}
+		       </foreach>
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

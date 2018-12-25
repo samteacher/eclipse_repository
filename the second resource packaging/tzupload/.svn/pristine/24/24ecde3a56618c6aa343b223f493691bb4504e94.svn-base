@@ -1,0 +1,71 @@
+springmvc的配置如下：
+
+=================================================================================
+ 1: 引入jar包
+ 	commons-beanutils-1.8.0.jar
+	commons-fileupload-1.2.1.jar
+	commons-io-2.0.1.jar
+	commons-lang3-3.1.jar
+	commons-logging-1.1.3.jar
+	commons-pool-1.2.jar
+	spring-aop-4.1.5.RELEASE.jar
+	spring-aspects-4.1.5.RELEASE.jar
+	spring-beans-4.1.5.RELEASE.jar
+	spring-context-4.1.5.RELEASE.jar
+	spring-context-support-4.1.5.RELEASE.jar
+	spring-core-4.1.5.RELEASE.jar
+	spring-expression-4.1.5.RELEASE.jar
+	spring-web-4.1.5.RELEASE.jar
+	spring-webmvc-4.1.5.RELEASE.jar
+	spring-webmvc-portlet-4.1.5.RELEASE.jar
+=================================================================================
+2：在web.xml定义Springmvc的核心类Servlet类
+ springmvc的配置和applicationContext.xml是一种父子关系	
+  <!-- springmvc的核心类 -->
+  <servlet>
+  	<servlet-name>tzupload</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>tzupload</servlet-name>
+  	<url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  =================================================================================
+ 3:在web-inf下建立一个叫："servlet-name"-servlet.xml文件  如：tzupload-servlet.xml
+ 如果想改变名称：在servlet核心类中加入：
+ <init-param>
+	<param-name>namespace</param-name>
+	<param-value>kekeupload</param-value>
+</init-param>
+名称就可以叫：kekeupload.xml
+ =================================================================================
+ 4:定义一个TzUploadController.java类
+ package com.tz.upload;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * ClassName:TzUploadController <br/>
+ * Function: TODO ADD FUNCTION. <br/>
+ * Reason: TODO ADD REASON. <br/>
+ * Date: 2015年11月5日 下午9:09:13 <br/>
+ * 
+ * @author Administrator
+ * @version
+ * @since JDK 1.6
+ * @see
+ */
+@RequestMapping("/upload")
+@Controller
+public class TzUploadController {
+
+	
+	@RequestMapping("/index")
+	public String index(){
+		System.out.println("进来吗???");
+		return "";
+	}
+
+}
+=================================================================================
+ 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+  http://www.springframework.org/schema/beans/spring-beans.xsd  
+  http://www.springframework.org/schema/aop   
+  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+  http://www.springframework.org/schema/context   
+  http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  http://www.springframework.org/schema/util   
+  http://www.springframework.org/schema/util/spring-util-3.0.xsd
+  ">
+	<description>SpringIOC-初始 </description>
+	
+	<!-- 开启包的注解 -->
+	<context:component-scan base-package="com.tz.dao"/>
+	<context:component-scan base-package="com.tz.service"/>
+	<!-- 最快捷和最简单的方式:有两种方法：第一bean注入，第二种是通过context引入 -->
+ 	<context:property-placeholder location="classpath:db/db.properties"  file-encoding="utf-8"/>
+<!-- 	<bean id="propetiesConfig" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer"> -->
+<!-- 		<property name="location" value="classpath:db/dbccc.properties"></property> -->
+<!-- 			<property name="locations"> -->
+<!-- 				<list> -->
+<!-- 					<value>classpath:db/db.properties</value> -->
+<!-- 				</list> -->
+<!-- 			</property> -->
+<!-- 		<property name="fileEncoding" value="UTF-8"></property> -->
+<!-- 		<property name="ignoreResourceNotFound" value="true"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 需要一个数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+	
+	<!-- jdbctemplate引入进来 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"></bean>
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.bean.Teacher">  
+	
+	<!-- 查询老师信息 -->
+	<resultMap id="teacherMap" type="Teacher">
+		<id column="id" property="id"/> <!--  teacher.setId(rs.getInt("id"))-->
+		<result column="username" property="username"/>
+		<collection property="students" column="id"  ofType="Student" select="queryStudents"></collection>
+	</resultMap>
+	<select id="findTeachers" resultMap="teacherMap" parameterType="Params">
+		SELECT 
+		t.id,
+		t.username,
+		(select count(1) from tz_student s where s.teacher_id = t.id) as studentCount
+		FROM tz_teacher t
+		LIMIT ${pageNo} ,${pageSize}
+	</select>
+	
+	<select id="queryStudents" resultType="Student">
+		SELECT id,username,classname FROM tz_student 
+		WHERE teacher_id = #{id}
+		LIMIT 0,10
+	</select>
+	<!-- 查询老师信息  end -->
+	
+	<!-- 根据老师id查询用户信息，每4条分一页 -->
+	<select id="loadStudentsByTid" resultType="Student" parameterType="Params">
+		SELECT id,username,classname FROM tz_student 
+		WHERE teacher_id = #{id}
+		order by id 
+		LIMIT ${pageNo} ,${pageSize}
+		
+	</select>
+</mapper>
+

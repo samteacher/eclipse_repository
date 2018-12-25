@@ -1,0 +1,66 @@
+当用户发起请求的时候，如果你配置了拦截器，它会找到一个HandlerExecutionChain 拦截器栈。
+HandlerExecutionChain是负责处理请求放回的ModelAndView的处理执行链，每个装配的
+HandlerInterceptor类都会执行拦截操作。也就说当你顶一个类实现 HandlerInterceptor都会执行一个方法:
+
+boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object obj);
+在每个请到达的时候，都先执行的前置方法，当返回为false时候，请求直接返回，并且不会进行到下一个拦截器中.
+
+
+代码如下：
+/**
+ * tzdesk系统平台
+ * tzupload
+ * com.tz.core
+ * LoginIntercetor.java
+ * 创建人:xuchengfei 
+ * 时间：2015年11月13日-下午9:51:18 
+ * 2015潭州教育公司-版权所有
+ */
+package com.tz.core;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * 
+ * LoginIntercetor
+ * 创建人:xuchengfei 
+ * 时间：2015年11月13日-下午9:51:18 
+ * @version 1.0.0
+ * 
+ */
+public class LoginIntercetor implements HandlerInterceptor{
+
+	@Override
+	public boolean preHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler) throws Exception {
+		System.out.println("进来了吗..........");
+		return false;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		System.out.println("请求结束执行的方法..........");
+		
+	}
+	@Override
+	public void afterCompletion(HttpServletRequest request,
+			HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		System.out.println("响应已经被渲染成功后执行的方法..........");
+		
+	}
+
+}
+
+第二步配置：
+
+
+
+
+

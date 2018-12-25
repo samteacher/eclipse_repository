@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.bean.userMapper"> 
+ 
+ 	<!-- 缓冲 -->
+ 	<cache></cache>
+ 	
+ 	<!-- 处理create_time 为null的     转换为createTime -->
+ 	<resultMap type="User" id="userMap">
+ 		<result column="create_time" property="createTime"/>
+ 		<result column="update_time" property="updateTime"/>
+ 		<result column="teacher_id" property="teacherId"/>
+ 		<result column="subject_id" property="subjectId"/>
+ 	</resultMap>
+ 	
+ 	<select id="countUser" resultType="int">
+		SELECT count(0) from user
+	</select>
+ 	
+	<select id="getUser" parameterType="java.lang.Integer" resultMap="userMap">
+		SELECT * from user where id = #{0}
+	</select>
+	
+	<select id="limitUser" resultType="User" parameterType="Parmes">
+		SELECT * from user LIMIT #{pageNo},#{pageSize}
+	</select>
+	
+	<!-- ******************************************************************* -->	
+ 
+	<!--  所有的增，删，查，改都在这里进行定义  -->
+	<select id="findUsers" resultType="User">
+		SELECT username,create_time as createTime,update_time as updateTime,teacher_id as teacherId,subject_id as subjectId from user
+	</select>
+	
+	<select id="likeUser" resultType="User" parameterType="Parmes">
+		SELECT * from user where username LIKE '%${username}%' AND `password` = #{password} ORDER BY #{order}
+	</select>
+	
+	<insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `user` (
+			username,
+			password,
+			account,
+			telephone,
+			idcard,
+			male,
+			birthday,
+			email,
+			address,
+			age,
+			isDelete,
+			teacher_id,
+			subject_id,
+			status,
+			type
+		)VALUES(
+			#{username},
+			#{password},
+			#{account},
+			#{telephone},
+			#{idcard},
+			#{male},
+			#{birthday},
+			#{email},
+			#{address},
+			#{age},
+			#{isDelete},
+			#{teacherId},
+			#{subjectId},
+			#{status},
+			#{type}
+		)
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		update user set username = #{username} where id = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="int" >
+		delete from user where id = #{0}
+		<!-- delete from user where id = #{id} -->
+	</delete>
+	
+</mapper>
+

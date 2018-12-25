@@ -1,0 +1,83 @@
+mybatis的两种实现方法
+1、xml+SqlSession
+1、SqlSession+接口+xmlo
+
+******************************************************************************
+
+<!-- 设值的是MANAGED 自动管理 事务提交-->
+<transactionManager type="MANAGED">
+	<property name="closeConnection" value="false"/>
+ </transactionManager>
+  
+  ******************************************************************************
+ 多对一，多对多使用collection
+ <collection property="students" ofType="Student" fetchType="lazy"> 
+	<id column="sid"  property="id"/>
+	<result column="sname" property="username"/>
+	<result column="classname" property="classname"/>
+</collection>
+ 
+ ******************************************************************************
+ 
+<!-- 多对一 第二种写法 -->
+<resultMap id="studentMap3" type="Student">
+	<id column="id" property="id"/>
+	<result column="username" property="username"/>
+	<result column="classname" property="classname"/>
+	<association property="teacher" javaType="Teacher" column="id" select="queryTeacher"></associ ation>
+</resultMap>
+
+
+<select id="queryStudents2" resultMap="studentMap3" parameterType="Params">
+	SELECT
+		s.id,
+		s.username,
+		s.classname
+	FROM
+		tz_student s
+	WHERE
+		s.teacher_id = #{id}
+</select>
+
+<select id="queryTeacher" resultType="Teacher">
+	SELECT
+		t.id,
+		t.username
+	FROM
+		tz_teacher t	
+	WHERE 
+	  t.id=#{id}
+</select>
+  
+  //openSession(true) 代表自动事务提交
+SqlSession sqlSession = sessionFactory.openSession(true);
+ 
+******************************************************************************
+
+//记得写db  不然的会拉链不到数据库  提示  java.lang.ClassNotFoundException: Cannot find class: ${driver}   
+ <dataSource type="POOLED">
+    <property name="driver" value="${db.driver}"/>
+    <property name="url" value="${db.url}"/>
+    <property name="username" value="${db.username}"/>
+    <property name="password" value="${db.password}"/>
+  </dataSource>
+  
+ ******************************************************************************
+
+  单个参数可以用like '${0}'}来表示
+  
+ ******************************************************************************
+ 
+foreach元素的属性主要有 item，index，collection，open，separator，close。 
+1、item表示集合中每一个元素进行迭代时的别名，
+2、index指定一个名字，用于表示在迭代过程中，每次迭代到的位置，
+3、open表示该语句以什么开始，
+4、separator表示在每次进行迭代之间以什么符号作为分隔符，
+5、close表示以什么结束。
+
+在使用foreach的时候最关键的也是最容易出错的就是collection属性，该属性是必须指定的，但是在不同情况下，该属性的值是不一样的，主要有一下3种情况：
+1.如果传入的是单参数且参数类型是一个List的时候，collection属性值为list
+2.如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array
+3.如果传入的参数是多个的时候，我们就需要把它们封装成一个Map或者Object。
+
+ *****************************************************************************

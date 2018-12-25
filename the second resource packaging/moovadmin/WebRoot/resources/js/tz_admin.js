@@ -1,0 +1,3 @@
+$(function(){
+	$(".tmui-tips").tmTip();
+});

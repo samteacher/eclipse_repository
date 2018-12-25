@@ -1,0 +1,62 @@
+/**
+ * tzdesk系统平台
+ * moonvip_admin
+ * [servicePackage].[smallBeanName]
+ * I[beanName]Service.java
+ * 创建人:[author] 
+ * 时间：[date]
+ * 2015潭州教育公司-版权所有
+ */
+package [servicePackage].[smallBeanName].impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tz.bean.[beanName];
+import com.tz.bean.TzParams;
+import com.tz.dao.[smallBeanName].I[beanName]Mapper;
+import [servicePackage].[smallBeanName].I[beanName]Service;
+import com.tz.util.TmStringUtils;
+
+/**
+ * [description]serviceImpl
+ * I[beanName]Service
+ * 创建人:[author] 
+ * 时间：[date]
+ * @version 1.0.0
+ * 
+ */
+@Service
+public class [beanName]ServiceImpl implements I[beanName]Service{
+
+	@Autowired
+	private I[beanName]Mapper [smallBeanName]Mapper;
+	
+	@Override
+	public List<[beanName]> find[beanName]s(TzParams params){
+		if(TmStringUtils.isEmpty(params.getOrder()))params.setOrder("create_time desc");
+		return [smallBeanName]Mapper.find[beanName]s(params);
+	}
+
+	@Override
+	public [beanName] get[beanName](Integer id) {
+		return [smallBeanName]Mapper.get[beanName](id);
+	}
+
+	@Override
+	public int save([beanName] [smallBeanName]) {
+		return [smallBeanName]Mapper.save([smallBeanName]);
+	}
+
+	@Override
+	public int update([beanName] [smallBeanName]) {
+		return [smallBeanName]Mapper.update([smallBeanName]);
+	}
+
+	@Override
+	public int delete(TzParams params) {
+		return [smallBeanName]Mapper.delete(params);
+	}
+}

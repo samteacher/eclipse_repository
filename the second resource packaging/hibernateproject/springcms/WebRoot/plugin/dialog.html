@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>dialog1.0.html</title>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/sg.css">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/sgutil.js"></script>
+	<script type="text/javascript" src="js/sg.js"></script>
+  </head>
+  <body>
+	<div id="box" style="width:640px;height:320px;background:Red;">
+		<img id="bigsrc" src="images/22.jpg">
+		<div class="drag" data-handler=".title" style="background:red;"><div class="title"></div>111</div>
+		<div class="drag" style="background:green;">222</div>
+		<div class="drag" style="background:black;">333</div>
+		<div class="drag" style="background:yellow;">444</div>
+		<div class="drag" style="background:yellow;">444</div>
+	</div>
+	<div id="console"></div>
+	<script type="text/javascript">
+		$(function(){
+			
+			$(".drag").tzDrag({move:function(opts){
+				var bigimgDom = document.getElementById("bigsrc");
+				var width = bigimgDom.width;
+				var height = bigimgDom.height;
+				var w = 640;
+				var h = 320;
+				var wlit = w / width;
+				var hlit = h / height;
+				//$("#console").html(opts.width+"==="+opts.height+"==="+opts.left+"=="+opts.top);
+				$("#x").text(opts.left * wlit);
+				$("#y").text(opts.top * hlit);
+
+			}});
+
+			$.tzConfirm({title:"我是潭州学院keke老师",content:"我是潭州学院keke老师我是潭州学院keke老师我在yy6359讲课",width:360,height:200,callback:function(ok){
+			if(ok){
+				alert("您点击的是确定按钮!执行一个ajax方法");
+			}else{
+				alert("您点击的是关闭按钮!");
+			}
+			}});
+		});
+	</script>
+
+  </body>
+</html>

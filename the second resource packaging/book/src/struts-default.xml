@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+	<package name="uploadStruts" extends="struts-default">
+		<interceptors>
+			<interceptor name="LogInterceptor" class="com.sam.core.LogInterceptor"></interceptor>
+		</interceptors>
+		
+		<action name="uploadfile" class="com.sam.login.LoginAction">
+		
+		</action>
+	</package>
+
+	<package name="login-default" extends="struts-default" abstract="true">
+		<global-results>
+			<result name="reg" type="register">/login.jsp</result>
+			<result name="logout" type="redirectAction">/login.jsp</result>
+		</global-results>
+	</package>
+	
+</struts>

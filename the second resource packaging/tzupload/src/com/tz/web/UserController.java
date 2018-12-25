@@ -1,0 +1,177 @@
+/**
+ * Project Name:tzupload
+ * File Name:UserController.java
+ * Package Name:com.tz.upload
+ * Date:2015年11月6日下午8:45:16
+ * Copyright (c) 2015, chenzhou1025@126.com All Rights Reserved.
+ *
+*/
+
+package com.tz.web;
+
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.WebBindingInitializer;
+
+import com.tz.util.DateFormateEditor;
+
+import bean.User;
+
+/**
+ * ClassName:UserController <br/>
+ * Function: TODO ADD FUNCTION. <br/>
+ * Reason:	 TODO ADD REASON. <br/>
+ * Date:     2015年11月6日 下午8:45:16 <br/>
+ * @author   Administrator
+ * @version  
+ * @since    JDK 1.6
+ * @see 	 
+ */
+@Controller
+@RequestMapping("/user")
+public class UserController extends BaseController{
+	
+
+	
+	
+	@RequestMapping("/add")
+	public String add(){
+		return "user/add";
+	}
+	
+	//http://localhost/tzupload/user/list/123456/31.html
+	@RequestMapping("/list/{id}/{age}")
+	public String list(@PathVariable("id")Integer id,@PathVariable("age")Integer age){
+		System.out.println("=====>"+id+"===="+age);
+		return "redirect:/success.jsp";
+	}
+	
+	//@RequestMapping("/save")
+//	@RequestMapping(value="/save",method=RequestMethod.POST)
+//	public String save(HttpServletRequest request){
+//		// 用户名称
+//		 String username = request.getParameter("username");
+//		// 年龄
+//		 Integer age = Integer.parseInt(request.getParameter("age"));
+//		// 邮箱
+//		 String email = request.getParameter("email");
+//		// 电话号码
+//		 String phone = request.getParameter("phone");
+//		// 城市
+//		 String city = request.getParameter("city");
+//		// 兴趣爱好
+//		 String[] hobbys = request.getParameterValues("hobbys");
+//		// 1男0女2保密
+//		 Integer male = Integer.parseInt(request.getParameter("male"));
+//		// 描述
+//		 String desc = request.getParameter("desc");
+//		 
+//		 System.out.println("=============="+username);
+//		 System.out.println("=============="+age);
+//		 System.out.println("=============="+email);
+//		 System.out.println("=============="+phone);
+//		 System.out.println("=============="+city);
+//		 System.out.println("=============="+hobbys.toString());
+//		 System.out.println("=============="+male);
+//		 System.out.println("=============="+desc);
+//		 
+//		 return "redirect:/success.jsp";
+//	}
+	
+	
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	public String save(User user){
+		 System.out.println(user.getUsername());
+		 return "redirect:/success.jsp";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/ajaxSave",method=RequestMethod.POST)
+	public String ajaxSave(User user){
+		 System.out.println(user.getUsername());
+		 return "success";
+	}
+	
+	
+	@RequestMapping(value="/params")//defaultValue="我的名字叫keke"
+	public String save(@RequestParam(value="username",required=true)String kekekusenrame) throws UnsupportedEncodingException{
+		System.out.println("================="+new String(kekekusenrame.getBytes("ISO-8859-1"),"UTF-8"));
+		return "redirect:/success.jsp";
+	}
+	
+	
+//	@RequestMapping(value="/save",method=RequestMethod.POST)
+//	public String save(HttpSession session,HttpServletResponse response,HttpServletRequest request){
+//		 return "redirect:/success.jsp";
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="/save2",method=RequestMethod.POST)
+	public String save(HttpServletRequest request) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		Map<String, String[]> maps = request.getParameterMap();
+		Class clz = User.class;
+		User user = (User) clz.newInstance();
+		for(Map.Entry<String, String[]> entry : maps.entrySet()){
+			String key = entry.getKey();
+			String[] values = entry.getValue();
+			if(values!=null && values.length>0){
+				if(values.length==1){
+					Class clztype = getType(clz,key);
+					Method method = clz.getDeclaredMethod("set"+getMethodName(key), clztype);
+					if(clztype.toString().indexOf("Integer")!=-1){//Float
+						method.invoke(user, Integer.parseInt(values[0]));
+					}else{
+						method.invoke(user, String.valueOf(values[0]));
+					}
+				}else{
+//					Method method = clz.getDeclaredMethod("set"+getMethodName(key), getType(clz,key));
+//					method.invoke(user, values);
+				}
+			}
+		}
+		return "redirect:/success.jsp";
+	}
+	
+	//拼接set方法
+	public static String getMethodName(String name){
+		return name.substring(0, 1).toUpperCase()+name.substring(1);
+	}
+	
+	//根据字段名称获取数据类型
+	public static Class getType(Class clz,String name){
+		Field field;
+		try {
+			field = clz.getDeclaredField(name);
+			return field.getType();
+		} catch (NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+}
+

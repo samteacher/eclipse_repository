@@ -1,0 +1,71 @@
+springmvc���������£�
+
+=================================================================================
+ 1: ����jar��
+ 	commons-beanutils-1.8.0.jar
+	commons-fileupload-1.2.1.jar
+	commons-io-2.0.1.jar
+	commons-lang3-3.1.jar
+	commons-logging-1.1.3.jar
+	commons-pool-1.2.jar
+	spring-aop-4.1.5.RELEASE.jar
+	spring-aspects-4.1.5.RELEASE.jar
+	spring-beans-4.1.5.RELEASE.jar
+	spring-context-4.1.5.RELEASE.jar
+	spring-context-support-4.1.5.RELEASE.jar
+	spring-core-4.1.5.RELEASE.jar
+	spring-expression-4.1.5.RELEASE.jar
+	spring-web-4.1.5.RELEASE.jar
+	spring-webmvc-4.1.5.RELEASE.jar
+	spring-webmvc-portlet-4.1.5.RELEASE.jar
+=================================================================================
+2����web.xml����Springmvc�ĺ�����Servlet��
+ springmvc�����ú�applicationContext.xml��һ�ָ��ӹ�ϵ	
+  <!-- springmvc�ĺ����� -->
+  <servlet>
+  	<servlet-name>tzupload</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>tzupload</servlet-name>
+  	<url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  =================================================================================
+ 3:��web-inf�½���һ���У�"servlet-name"-servlet.xml�ļ�  �磺tzupload-servlet.xml
+ �����ı���ƣ���servlet�������м��룺
+ <init-param>
+	<param-name>namespace</param-name>
+	<param-value>kekeupload</param-value>
+</init-param>
+��ƾͿ��ԽУ�kekeupload.xml
+ =================================================================================
+ 4:����һ��TzUploadController.java��
+ package com.tz.upload;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * ClassName:TzUploadController <br/>
+ * Function: TODO ADD FUNCTION. <br/>
+ * Reason: TODO ADD REASON. <br/>
+ * Date: 2015��11��5�� ����9:09:13 <br/>
+ * 
+ * @author Administrator
+ * @version
+ * @since JDK 1.6
+ * @see
+ */
+@RequestMapping("/upload")
+@Controller
+public class TzUploadController {
+
+	
+	@RequestMapping("/index")
+	public String index(){
+		System.out.println("������???");
+		return "";
+	}
+
+}
+=================================================================================
+ 

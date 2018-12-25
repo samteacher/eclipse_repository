@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=config/mybatis-config.xml,WebRoot/resource/js/jquery.js,WebRoot/WEB-INF/resource/js/jquery.js,WebRoot/js/jquery.js
+validator.Unchecked=

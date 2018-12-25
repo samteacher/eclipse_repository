@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>loading.html</title>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/sg.css">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/sgutil.js"></script>
+	<script type="text/javascript" src="js/sg.js"></script>
+	<style>
+		 /*loading提示框*/
+.tzui-loading{display:inline-block;background:#141414 url(../images/loaders/loader2.gif) no-repeat 5px center;color:#fff;box-shadow:5px 5px 1em #333;position:fixed;padding:6px 6px 6px 35px;z-index:1000}
+.tzui-loading .tzui-loading-cnt{padding:5px 16px;}
+.tzui-loading .tzui-loading-gif{padding:3px 8px;float:left}
+
+	</style>
+  </head>
+  <body>
+	<script type="text/javascript">	
+		//zindex: loading-
+		//new tzLoading("请稍后数据sdfsdf加载中....",{overlay:true,callback:function($obj){
+			
+		//},load:function($obj){
+		//	$obj.css("border","1px solid #fff");
+		//}});
+
+		loading("我爱你们sdf",0,true);
+		//loading("我爱你们",2);
+		//loading("我爱你们",2,true);
+		new tzLoading("请稍后数据....");
+		//loading("请注意士大夫",2);==new.tzLoading("请注意士大夫....",{timeout:2});
+
+	</script>
+  </body>
+</html>
