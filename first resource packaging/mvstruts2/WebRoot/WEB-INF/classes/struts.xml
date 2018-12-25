@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	
+	<package name="strutsdefault" namespace="/user" extends="struts-default">
+		<action name="*" method="{1}" class="com.moov.login.ValueAction">
+			<param name="username">{2}</param>	
+			<param name="password">{3}</param>
+			<result name="{1}">/user/{1}.jsp</result>
+		</action>
+	</package>
+	
+</struts>

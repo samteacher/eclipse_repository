@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>blog</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <filter>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<filter-class>com.moov.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 注释logoservlet -->
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>com.moov.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>com.moov.servlet.RegisterServlet</servlet-class>
+  	<init-param>
+  		<param-name>username</param-name>
+  		<param-value>余秋富</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>password</param-name>
+  		<param-value>448521</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/reg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>Forword</servlet-name>
+  	<servlet-class>com.moov.servlet.Forword</servlet-class>
+  </servlet>
+   <servlet-mapping>
+  	<servlet-name>Forword</servlet-name>
+  	<url-pattern>/forword</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>ApplicationServlet</servlet-name>
+    <servlet-class>com.moov.area.ApplicationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplicationServlet</servlet-name>
+    <url-pattern>/application</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>TestServlet</servlet-name>
+  	<servlet-class>com.moov.area.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TestServlet</servlet-name>
+  	<url-pattern>/testservlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SessiconServlet</servlet-name>
+  	<servlet-class>com.moov.area.SessiconServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SessiconServlet</servlet-name>
+  	<url-pattern>/sessicon</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SessiconTest</servlet-name>
+  	<servlet-class>com.moov.area.SessiconTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SessiconTest</servlet-name>
+  	<url-pattern>/sessicontest</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>RequestServlet</servlet-name>
+  	<servlet-class>com.moov.area.RequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RequestServlet</servlet-name>
+  	<url-pattern>/requestservlet</url-pattern>
+  </servlet-mapping>
+  
+  <session-config>
+  	<session-timeout>30</session-timeout>
+  </session-config>
+  
+</web-app>

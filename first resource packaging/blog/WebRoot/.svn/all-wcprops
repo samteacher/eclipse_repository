@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/MyRepository/!svn/ver/55/blog/WebRoot
+END
+error.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/MyRepository/!svn/ver/18/blog/WebRoot/error.jsp
+END
+index.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/MyRepository/!svn/ver/17/blog/WebRoot/index.jsp
+END
+success.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/MyRepository/!svn/ver/18/blog/WebRoot/success.jsp
+END

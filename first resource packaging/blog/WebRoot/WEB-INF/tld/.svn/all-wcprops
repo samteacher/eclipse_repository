@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/MyRepository/!svn/ver/55/blog/WebRoot/WEB-INF/tld
+END
+mv.tld
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/MyRepository/!svn/ver/55/blog/WebRoot/WEB-INF/tld/mv.tld
+END

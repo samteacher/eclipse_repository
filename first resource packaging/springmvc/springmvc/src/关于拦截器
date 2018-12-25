@@ -1,0 +1,6 @@
+用户发起请求：
+如果配置了拦截器
+它会找到了个HandlerExectionChain 拦截器栈
+
+HandlerExectionChain负责处理请求返回的ModelAndView的处理执行链
+每个装配的HandlerExectionChain类都会执行拦截操作

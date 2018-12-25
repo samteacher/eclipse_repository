@@ -1,0 +1,6 @@
+九大隐式对象
+
+response out
+request,application,session,pageContext
+page,config
+excetion
